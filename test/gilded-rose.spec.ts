@@ -1,4 +1,6 @@
 import { Item, GildedRose } from '@/gilded-rose';
+import { MAXIMUM_QUALITY } from '@/contants/maximum-quality';
+import { ItemName } from '@/enums/item.enum';
 
 describe('Gilded Rose', () => {
   it('should foo', () => {
@@ -6,46 +8,75 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].name).toBe('foo');
   });
+});
+
+describe('default items', () => {
+  let gildedRose: GildedRose;
+
+  beforeEach(() => {
+    gildedRose = new GildedRose([]);
+  });
 
   it('should update item for 1 day', () => {
-    const gildedRose = new GildedRose([new Item('foo', 1, 1)]);
+    const newItem = new Item(ItemName.Default, 1, 1);
+    gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('foo');
-    expect(items[0].sellIn).toBe(0);
-    expect(items[0].quality).toBe(0);
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.Default);
+    expect(item.sellIn).toBe(0);
+    expect(item.quality).toBe(0);
   });
 
   it('quality should decrease 2x when sell date has passed', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 4)]);
+    const newItem = new Item(ItemName.Default, 0, 4);
+    gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('foo');
-    expect(items[0].sellIn).toBe(-1);
-    expect(items[0].quality).toBe(2);
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.Default);
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(2);
   });
 
   it('quality should never be negative', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
+    const newItem = new Item(ItemName.Default, 0, 0);
+    gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('foo');
-    expect(items[0].sellIn).toBe(-1);
-    expect(items[0].quality).toBe(0);
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.Default);
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(0);
   });
 });
 
 describe('aged brie items', () => {
+  let gildedRose: GildedRose;
+
+  beforeEach(() => {
+    gildedRose = new GildedRose([]);
+  });
+
   it('quality should increase', () => {
-    const gildedRose = new GildedRose([new Item('Aged Brie', 2, 2)]);
+    const newItem = new Item(ItemName.AgedBrie, 2, 2);
+    gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('Aged Brie');
-    expect(items[0].sellIn).toBe(1);
-    expect(items[0].quality).toBe(3);
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.AgedBrie);
+    expect(item.sellIn).toBe(1);
+    expect(item.quality).toBe(3);
   });
 
   it('quality should never be more than maximum quality', () => {
-    const gildedRose = new GildedRose([new Item('Aged Brie', 2, 50)]);
+    const newItem = new Item(ItemName.AgedBrie, 2, MAXIMUM_QUALITY);
+    gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('Aged Brie');
-    expect(items[0].sellIn).toBe(1);
-    expect(items[0].quality).toBe(50);
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.AgedBrie);
+    expect(item.sellIn).toBe(1);
+    expect(item.quality).toBe(MAXIMUM_QUALITY);
   });
 });
