@@ -1,4 +1,5 @@
 export enum ItemName {
-  Default = 'foo',
   AgedBrie = 'Aged Brie',
+  Default = 'foo',
+  Sulfuras = 'Sulfuras, Hand of Ragnaros',
 }

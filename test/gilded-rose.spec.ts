@@ -80,3 +80,21 @@ describe('aged brie items', () => {
     expect(item.quality).toBe(MAXIMUM_QUALITY);
   });
 });
+
+describe('sulfura items', () => {
+  let gildedRose: GildedRose;
+
+  beforeEach(() => {
+    gildedRose = new GildedRose([]);
+  });
+
+  it('should never be sold', () => {
+    const newItem = new Item(ItemName.Sulfuras, 2, 2);
+    gildedRose.items.push(newItem);
+    const items = gildedRose.updateQuality();
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.Sulfuras);
+    expect(item.sellIn).toBe(2);
+  });
+});
