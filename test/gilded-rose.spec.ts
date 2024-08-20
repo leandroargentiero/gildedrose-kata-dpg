@@ -128,4 +128,15 @@ describe('backstage pass items', () => {
     expect(item.sellIn).toBe(4);
     expect(item.quality).toBe(5);
   });
+
+  it('quality should be 0 when concert has passed', () => {
+    const newItem = new Item(ItemName.BackStagePasses, 0, 10);
+    gildedRose.items.push(newItem);
+    const items = gildedRose.updateQuality();
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.BackStagePasses);
+    expect(item.sellIn).toBe(-1);
+    expect(item.quality).toBe(0);
+  });
 });
