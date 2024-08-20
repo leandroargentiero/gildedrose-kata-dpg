@@ -117,4 +117,15 @@ describe('backstage pass items', () => {
     expect(item.sellIn).toBe(9);
     expect(item.quality).toBe(4);
   });
+
+  it('quality should increase by 3 when sell in days are 5 or less', () => {
+    const newItem = new Item(ItemName.BackStagePasses, 5, 2);
+    gildedRose.items.push(newItem);
+    const items = gildedRose.updateQuality();
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.BackStagePasses);
+    expect(item.sellIn).toBe(4);
+    expect(item.quality).toBe(5);
+  });
 });
