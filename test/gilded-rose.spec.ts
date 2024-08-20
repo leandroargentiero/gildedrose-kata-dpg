@@ -99,3 +99,22 @@ describe('sulfura items', () => {
     expect(item.quality).toBe(2);
   });
 });
+
+describe('backstage pass items', () => {
+  let gildedRose: GildedRose;
+
+  beforeEach(() => {
+    gildedRose = new GildedRose([]);
+  });
+
+  it('quality should increase by 2 when sell in days are 10 or less', () => {
+    const newItem = new Item(ItemName.BackStagePasses, 10, 2);
+    gildedRose.items.push(newItem);
+    const items = gildedRose.updateQuality();
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.BackStagePasses);
+    expect(item.sellIn).toBe(9);
+    expect(item.quality).toBe(4);
+  });
+});
