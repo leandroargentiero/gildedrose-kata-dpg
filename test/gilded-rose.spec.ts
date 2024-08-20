@@ -6,4 +6,12 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].name).toBe('foo');
   });
+
+  it('should update item for 1 day', () => {
+    const gildedRose = new GildedRose([new Item('foo', 1, 1)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].name).toBe('foo');
+    expect(items[0].sellIn).toBe(0);
+    expect(items[0].quality).toBe(0);
+  });
 });
