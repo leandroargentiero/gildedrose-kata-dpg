@@ -88,7 +88,7 @@ describe('sulfura items', () => {
     gildedRose = new GildedRose([]);
   });
 
-  it('should never be sold', () => {
+  it('should never be sold or decrease in quality', () => {
     const newItem = new Item(ItemName.Sulfuras, 2, 2);
     gildedRose.items.push(newItem);
     const items = gildedRose.updateQuality();
@@ -96,5 +96,6 @@ describe('sulfura items', () => {
 
     expect(item.name).toBe(ItemName.Sulfuras);
     expect(item.sellIn).toBe(2);
+    expect(item.quality).toBe(2);
   });
 });
