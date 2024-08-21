@@ -1,4 +1,5 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import { GildedRose } from '@/entities/gilded-rose';
+import { Item } from '@/entities/item';
 import { MAXIMUM_QUALITY } from '@/contants/maximum-quality';
 import { ItemName } from '@/enums/item.enum';
 
