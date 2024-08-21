@@ -23,6 +23,11 @@ export class GildedRose {
 
   public updateQuality() {
     for (let item of this.items) {
+      if (item.name === ItemName.BackStagePasses) {
+        this.updateBackStagePassItem(item);
+        continue;
+      }
+
       if (item.name === ItemName.Sulfuras) {
         continue;
       }
@@ -124,6 +129,27 @@ export class GildedRose {
 
   private updateAgedBrieItem(item: Item) {
     item.quality = this.increaseQuality(item);
+    item.sellIn = this.decreaseSellIn(item);
+
+    return item;
+  }
+
+  private updateBackStagePassItem(item: Item) {
+    if (item.sellIn <= 5) {
+      item.quality = this.increaseQuality(item);
+      item.quality = this.increaseQuality(item);
+      item.quality = this.increaseQuality(item);
+    }
+
+    if (item.sellIn > 5 && item.sellIn <= 10) {
+      item.quality = this.increaseQuality(item);
+      item.quality = this.increaseQuality(item);
+    }
+
+    if (item.sellIn <= 0) {
+      item.quality = 0;
+    }
+
     item.sellIn = this.decreaseSellIn(item);
 
     return item;
