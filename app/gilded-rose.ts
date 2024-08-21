@@ -1,3 +1,4 @@
+import { MAXIMUM_QUALITY } from './contants/maximum-quality';
 import { MINIMUM_QUALITY } from './contants/minimum-quality';
 import { ItemName } from './enums/item.enum';
 
@@ -22,6 +23,11 @@ export class GildedRose {
 
   public updateQuality() {
     for (let item of this.items) {
+      if (item.name === ItemName.AgedBrie) {
+        this.updateAgedBrieItem(item);
+        continue;
+      }
+
       if (item.name === ItemName.Default) {
         this.updateDefaultItem(item);
         continue;
@@ -98,8 +104,25 @@ export class GildedRose {
     return item.sellIn <= 0;
   }
 
+  private increaseQuality(item: Item) {
+    return this.isBelowMaximumQuality(item)
+      ? (item.quality += 1)
+      : item.quality;
+  }
+
   private isAboveMinimumQuality(item: Item) {
     return item.quality > MINIMUM_QUALITY;
+  }
+
+  private isBelowMaximumQuality(item: Item) {
+    return item.quality < MAXIMUM_QUALITY;
+  }
+
+  private updateAgedBrieItem(item: Item) {
+    item.quality = this.increaseQuality(item);
+    item.sellIn = this.decreaseSellIn(item);
+
+    return item;
   }
 
   private updateDefaultItem(item: Item) {
