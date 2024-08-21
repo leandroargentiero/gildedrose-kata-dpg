@@ -140,3 +140,15 @@ describe('backstage pass items', () => {
     expect(item.quality).toBe(0);
   });
 });
+
+describe('conjured items', () => {
+  it('quality should decrease 2x', () => {
+    const gildedRose = new GildedRose([new Item(ItemName.Conjured, 10, 10)]);
+    const items = gildedRose.updateQuality();
+    const item = items[0];
+
+    expect(item.name).toBe(ItemName.Conjured);
+    expect(item.sellIn).toBe(9);
+    expect(item.quality).toBe(8);
+  });
+});
