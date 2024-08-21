@@ -1,7 +1,7 @@
-import { MAXIMUM_QUALITY } from '@/contants/maximum-quality';
-import { MINIMUM_QUALITY } from '@/contants/minimum-quality';
+import { MAXIMUM_QUALITY } from '@/contants/maximum-quality.constant';
+import { MINIMUM_QUALITY } from '@/contants/minimum-quality.constant';
 import { ItemName } from '@/enums/item.enum';
-import { Item } from './item';
+import { Item } from './item.entity';
 
 export class GildedRose {
   items: Array<Item>;

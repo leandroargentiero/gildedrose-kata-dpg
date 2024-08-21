@@ -1,6 +1,6 @@
-import { GildedRose } from '@/entities/gilded-rose';
-import { Item } from '@/entities/item';
-import { MAXIMUM_QUALITY } from '@/contants/maximum-quality';
+import { GildedRose } from '@/entities/gilded-rose.entity';
+import { Item } from '@/entities/item.entity';
+import { MAXIMUM_QUALITY } from '@/contants/maximum-quality.constant';
 import { ItemName } from '@/enums/item.enum';
 
 describe('Gilded Rose', () => {
