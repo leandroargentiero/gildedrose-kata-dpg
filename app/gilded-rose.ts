@@ -1,3 +1,4 @@
+import { MINIMUM_QUALITY } from './contants/minimum-quality';
 import { ItemName } from './enums/item.enum';
 
 export class Item {
@@ -19,8 +20,13 @@ export class GildedRose {
     this.items = items;
   }
 
-  updateQuality() {
+  public updateQuality() {
     for (let item of this.items) {
+      if (item.name === ItemName.Default) {
+        this.updateDefaultItem(item);
+        continue;
+      }
+
       if (
         item.name != 'Aged Brie' &&
         item.name != 'Backstage passes to a TAFKAL80ETC concert'
@@ -70,5 +76,36 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  private decreaseQuality(item: Item) {
+    if (this.isAboveMinimumQuality(item)) {
+      item.quality -= 1;
+    }
+
+    if (this.isAboveMinimumQuality(item) && this.hasPassedSellDate(item)) {
+      item.quality -= 1;
+    }
+
+    return item.quality;
+  }
+
+  private decreaseSellIn(item: Item) {
+    return (item.sellIn -= 1);
+  }
+
+  private hasPassedSellDate(item: Item) {
+    return item.sellIn <= 0;
+  }
+
+  private isAboveMinimumQuality(item: Item) {
+    return item.quality > MINIMUM_QUALITY;
+  }
+
+  private updateDefaultItem(item: Item) {
+    item.quality = this.decreaseQuality(item);
+    item.sellIn = this.decreaseSellIn(item);
+
+    return item;
   }
 }
