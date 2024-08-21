@@ -23,6 +23,11 @@ export class GildedRose {
 
   public updateQuality() {
     for (let item of this.items) {
+      if (item.name === ItemName.Conjured) {
+        this.updateConjuredItem(item);
+        continue;
+      }
+
       if (item.name === ItemName.BackStagePasses) {
         this.updateBackStagePassItem(item);
         continue;
@@ -150,6 +155,14 @@ export class GildedRose {
       item.quality = 0;
     }
 
+    item.sellIn = this.decreaseSellIn(item);
+
+    return item;
+  }
+
+  private updateConjuredItem(item: Item) {
+    item.quality = this.decreaseQuality(item);
+    item.quality = this.decreaseQuality(item);
     item.sellIn = this.decreaseSellIn(item);
 
     return item;
