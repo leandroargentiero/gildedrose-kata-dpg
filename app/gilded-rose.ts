@@ -23,6 +23,10 @@ export class GildedRose {
 
   public updateQuality() {
     for (let item of this.items) {
+      if (item.name === ItemName.Sulfuras) {
+        continue;
+      }
+
       if (item.name === ItemName.AgedBrie) {
         this.updateAgedBrieItem(item);
         continue;
